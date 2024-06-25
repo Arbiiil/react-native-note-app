@@ -9,22 +9,46 @@ const CurrentPageWidget = ({
   noteList,
   setCurrentPage,
   addNote,
+  editNote,
+  deleteNote,
+  noteToEdit,
+  setNoteToEdit,
 }) => {
   switch (currentPage) {
-    case 'home':
-      return <Home noteList={noteList} setCurrentPage={setCurrentPage} />
-    case 'add':
-      // Berikan function "addNote" ke component "AddNote"
-      return <AddNote setCurrentPage={setCurrentPage} addNote={addNote} />
-    case 'edit':
-      return <EditNote />
+    case "home":
+      return (
+        <Home
+          noteList={noteList}
+          setCurrentPage={setCurrentPage}
+          setNoteToEdit={setNoteToEdit}
+          deleteNote={deleteNote}
+        />
+      );
+    case "add":
+      return <AddNote setCurrentPage={setCurrentPage} addNote={addNote} />;
+    case "edit":
+      return (
+        <EditNote
+          setCurrentPage={setCurrentPage}
+          editNote={editNote}
+          noteToEdit={noteToEdit}
+        />
+      );
     default:
-      return <Home />
+      return <Home />;
   }
-}
+};
 
 const App = () => {
-  const [currentPage, setCurrentPage] = useState('home')
+  const [currentPage, setCurrentPage] = useState("home");
+  const [noteList, setNoteList] = useState([
+    {
+      id: 1,
+      title: "Note pertama",
+      desc: "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
+    },
+  ]);
+  const [noteToEdit, setNoteToEdit] = useState(null);
 
   const addNote = (title, desc) => {
     const id = noteList.length > 0 ? noteList[noteList.length - 1].id + 1 : 1;
@@ -38,25 +62,33 @@ const App = () => {
     ]);
   };
 
-  const [noteList, setNoteList] = useState([
-    {
-      id: 1,
-      title: 'Note pertama',
-      desc:
-        'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
-    },
-  ])
+  const editNote = (id, title, desc) => {
+    const updatedNotes = noteList.map((note) =>
+      note.id === id ? { ...note, title, desc } : note
+    );
+    setNoteList(updatedNotes);
+    setNoteToEdit(null);
+  };
 
+  const deleteNote = (id) => {
+    const filteredNotes = noteList.filter((note) => note.id !== id);
+    setNoteList(filteredNotes);
+  };
 
   return (
     <CurrentPageWidget
       currentPage={currentPage}
-      noteList={noteList}
+      
       setCurrentPage={setCurrentPage}
-      // Berikan function addNote sebagai prop
+      noteList={noteList}
       addNote={addNote}
+      editNote={editNote}
+      deleteNote={deleteNote}
+      noteToEdit={noteToEdit}
+      setNoteToEdit={setNoteToEdit}
     />
   );
 };
+
 
 export default App

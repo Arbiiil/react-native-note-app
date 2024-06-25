@@ -14,10 +14,10 @@ const CustomTextInput = ({
     },
     input: {
       borderWidth: 2,
-      borderColor: '#DDD',
+      borderColor: "#DDD",
       padding: 10,
     },
-  })
+  });
 
   return (
     <View style={styles.textInputWrapper}>
@@ -31,7 +31,7 @@ const CustomTextInput = ({
         defaultValue={text}
       />
     </View>
-  )
-}
+  );
+};
 
 export default CustomTextInput

@@ -11,23 +11,24 @@ const CustomButton = ({
 }) => {
   const styles = StyleSheet.create({
     button: {
-      alignItems: 'center',
+      alignItems: "center",
       backgroundColor,
       width,
       padding: 10,
     },
     buttonText: {
       fontSize,
-      fontWeight: '700',
+      fontWeight: "700",
       color,
     },
-  })
+  });
 
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
       <Text style={styles.buttonText}>{text}</Text>
     </TouchableOpacity>
-  )
-}
+  );
+};
+
 
 export default CustomButton
